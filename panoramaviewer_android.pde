@@ -1,4 +1,5 @@
 // Sensor classes
+import android.content.Context; // Android4
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,6 +21,7 @@ import oscP5.*;
 import java.util.*;
 
 // sensor
+Context context; // Android4+
 SensorManager mSensorManager;
 SensorEventListener sensorEventListener;
 Sensor accelerometer;
@@ -335,7 +337,9 @@ void onPause() {
 
 void initSensor(){
   sensorEventListener = new mSensorEventListener();
-  mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+  //mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE); // under Android4
+  context = getActivity(); // Android4+
+  mSensorManager = (SensorManager)context.getSystemService(Context.SENSOR_SERVICE); // Android4+
   
   accelerometer  = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
   magnetometer   = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
