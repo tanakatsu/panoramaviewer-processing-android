@@ -285,6 +285,16 @@ void keyPressed() {
   }
 }
 
+boolean isMultiScreenMode()
+{
+  return standAlone == false;
+}
+
+boolean isMultiScreenServer()
+{
+  return displayId == "center";
+}
+
 //-----------------------------------------------------------------------------------------
 
 void onPinch(float x, float y, float d){ 
@@ -292,6 +302,14 @@ void onPinch(float x, float y, float d){
   fov = constrain(fov - d * gain, 30, 120);
   
   mouseDragged_GUI();  
+}
+
+void onLongPress(float x, float y) {
+  if (menu.isVisible()) {
+    menu.hide();
+  } else {
+    menu.show();
+  }
 }
 
 public boolean surfaceTouchEvent(MotionEvent event){
@@ -461,14 +479,4 @@ void onKetaiListSelection(KetaiList klist)
 
   //dispose of list for now
   klist = null;
-}
-
-boolean isMultiScreenMode()
-{
-  return standAlone == false;
-}
-
-boolean isMultiScreenServer()
-{
-  return displayId == "center";
 }
